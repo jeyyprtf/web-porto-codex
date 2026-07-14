@@ -1,12 +1,11 @@
+'use client';
+
 import React, { useEffect, useMemo, useState } from 'react';
-import { createRoot } from 'react-dom/client';
 import {
   ArrowDownRight, ArrowRight, ArrowUpRight, Check, ChevronDown, ChevronLeft, ChevronRight,
   CircleArrowOutUpRight, Mail, Menu, Minus, MoveUpRight, Plus,
   Send, Sparkles, X
 } from 'lucide-react';
-import './styles.css';
-import './overrides.css';
 
 const defaultWorks = [
   { id: 1, title: 'Soft Power', category: 'Portraits', year: '2024', type: 'Still', image: 'https://images.unsplash.com/photo-1531123897727-8f129e1688ce?auto=format&fit=crop&w=1200&q=85', size: 'large', description: 'An exploration of quiet confidence and the spaces we inhabit.' },
@@ -19,7 +18,7 @@ const defaultWorks = [
 
 const categories = ['All work', 'Portraits', 'Editorial', 'Still Life', 'Motion'];
 
-function App() {
+export default function App() {
   const [activePage, setActivePage] = useState('home');
   const [menuOpen, setMenuOpen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState('All work');
@@ -122,5 +121,3 @@ function AdminPanel({ works, setWorks, close }) {
   const save = (e) => { e.preventDefault(); if (!form.title || !form.image) return; if (editing) setWorks(works.map(w => w.id === editing ? { ...form, id: editing } : w)); else setWorks([...works, { ...form, id: Date.now() }]); reset(); };
   return <div className="modal-backdrop admin-backdrop"><aside className="admin-panel" role="dialog" aria-modal="true" aria-label="Studio content manager"><div className="admin-head"><div><p className="eyebrow">Private studio / CMS</p><h2>Manage work</h2></div><button className="modal-close" onClick={close} aria-label="Close"><X /></button></div><div className="admin-body"><form className="admin-form" onSubmit={save}><div className="admin-form-title"><span>{editing ? 'Edit story' : 'Add new story'}</span>{editing && <button type="button" onClick={reset}>Cancel</button>}</div><input required placeholder="Title" value={form.title} onChange={e => setForm({ ...form, title: e.target.value })} /><input placeholder="Image URL (Unsplash or CDN)" value={form.image.startsWith('data:') ? '' : form.image} onChange={e => setForm({ ...form, image: e.target.value })} /><label className="file-upload">Upload image or video<input type="file" accept="image/*,video/*" onChange={handleFile} /></label><div className="input-row"><select value={form.category} onChange={e => setForm({ ...form, category: e.target.value })}>{categories.slice(1).map(c => <option key={c}>{c}</option>)}</select><input placeholder="Year" value={form.year} onChange={e => setForm({ ...form, year: e.target.value })} /></div><textarea placeholder="Short description" value={form.description} onChange={e => setForm({ ...form, description: e.target.value })}></textarea><select value={form.size} onChange={e => setForm({ ...form, size: e.target.value })}><option value="square">Square layout</option><option value="tall">Tall layout</option><option value="wide">Wide layout</option><option value="large">Large layout</option></select><select value={form.type} onChange={e => setForm({ ...form, type: e.target.value })}><option value="Still">Still image</option><option value="Film">Motion / video</option></select><button className="button-dark" type="submit">{editing ? 'Save changes' : 'Add to archive'} <Plus size={16} /></button></form><div className="admin-archive"><div className="admin-form-title"><span>{works.length} stories in archive</span><span className="saved-label"><Check size={13} /> saved locally</span></div>{works.map(work => <div className="admin-item" key={work.id}>{work.type === 'Film' && work.image.startsWith('data:video') ? <video src={work.image} muted /> : <img src={work.image} alt="" />}<div><b>{work.title}</b><span>{work.category} · {work.year}</span></div><button onClick={() => startEdit(work)} aria-label={`Edit ${work.title}`}>Edit</button><button onClick={() => setWorks(works.filter(w => w.id !== work.id))} aria-label={`Delete ${work.title}`}><Minus size={15} /></button></div>)}</div></div><p className="admin-footnote">This demo panel stores your archive in this browser. Connect the form to a backend or storage service when ready to publish.</p></aside></div>;
 }
-
-createRoot(document.getElementById('root')).render(<App />);
