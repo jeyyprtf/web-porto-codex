@@ -1,6 +1,6 @@
-# Mara Aster — Visual Stories in Light
+# Juan — Visual Stories in Light
 
-Portfolio dan personal branding website untuk fotografer / visual director dengan art direction editorial, modern, minimalist, dan animated.
+Portfolio dan personal branding website untuk Juan, fotografer dan visual director berusia 19 tahun dengan pengalaman 4 tahun, menggunakan art direction editorial, modern, minimalist, dan animated.
 
 ## Highlights
 
@@ -54,4 +54,4 @@ src/
 
 ## License
 
-Dibuat untuk kebutuhan personal branding Mara Aster Studio.
+Dibuat untuk kebutuhan personal branding Juan Studio.
