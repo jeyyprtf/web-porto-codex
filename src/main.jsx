@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import {
-  ArrowDownRight, ArrowRight, Check, ChevronDown, ChevronLeft, ChevronRight,
+  ArrowDownRight, ArrowRight, ArrowUpRight, Check, ChevronDown, ChevronLeft, ChevronRight,
   CircleArrowOutUpRight, Mail, Menu, Minus, MoveUpRight, Plus,
   Send, Sparkles, X
 } from 'lucide-react';
